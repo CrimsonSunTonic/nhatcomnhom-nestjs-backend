@@ -1,0 +1,55 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model tbl_employees {
+  id       Int    @id @default(autoincrement())
+  name     String
+  username String
+  email    String
+  password String
+  role     Int    @default(0)
+
+  @@map("tbl_employees")
+}
+
+model tbl_checkinout {
+  check_id   Int       @id @default(autoincrement())
+  user_id    Int
+  action     String
+  check_time DateTime?
+  latitude   String?
+  longitude  String?
+  remote     Int       @default(0)
+
+  @@index([user_id])
+  @@index([latitude])
+  @@map("tbl_checkinout")
+}
+
+model tbl_work_location {
+  id             Int    @id @default(autoincrement())
+  latitude       String?
+  longitude      String?
+  radiusinmeters String?
+
+  @@map("tbl_work_location")
+}
+
+// enum ActionEnum {
+//   check_in
+//   check_out
+//   start_break
+//   end_break
+// }
