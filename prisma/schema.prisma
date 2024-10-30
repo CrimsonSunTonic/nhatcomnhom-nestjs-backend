@@ -13,18 +13,18 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model tbl_employees {
+model users {
   id       Int    @id @default(autoincrement())
   name     String
   username String
   email    String
   password String
-  role     Int    @default(0)
+  role     String    @default("engineer")
 
-  @@map("tbl_employees")
+  @@map("users")
 }
 
-model tbl_checkinout {
+model attendance {
   check_id   Int       @id @default(autoincrement())
   user_id    Int
   action     String
@@ -35,16 +35,16 @@ model tbl_checkinout {
 
   @@index([user_id])
   @@index([latitude])
-  @@map("tbl_checkinout")
+  @@map("attendance")
 }
 
-model tbl_work_location {
+model work_location {
   id             Int    @id @default(autoincrement())
   latitude       String?
   longitude      String?
   radiusinmeters String?
 
-  @@map("tbl_work_location")
+  @@map("work_location")
 }
 
 // enum ActionEnum {
