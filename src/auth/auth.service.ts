@@ -7,11 +7,17 @@ export class AuthService {
     
   }
   signup() {
-    
     return { msg: 'I have signed up' }
   }
 
   signin() {
     return { msg: 'I have signed in' }
+  }
+  getsignup() {
+    return { msg: 'nhatcomnhom signed up' }
+  }
+
+  getsignin() {
+    return { msg: 'nhatcomnhom signed in' }
   }
 }
