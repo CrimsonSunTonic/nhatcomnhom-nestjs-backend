@@ -14,39 +14,44 @@ datasource db {
 }
 
 model User {
-  id       Int    @id @default(autoincrement())
-  email    String @unique
-  hash String
+  id Int @id @default(autoincrement())
+
+  createAt DateTime @default(now())
+  updateAt DateTime @updatedAt
+
+  email String @unique
+  hash  String
+
   firstname String?
-  lastname String?
+  lastname  String?
 
-  role     String    @default("engineer")
+  role String @default("engineer")
 
-  @@map("users")
+  // @@map("users")
 }
 
-model Attendance {
-  check_id   Int       @id @default(autoincrement())
-  user_id    Int
-  action     String
-  check_time DateTime?
-  latitude   String?
-  longitude  String?
-  remote     Int       @default(0)
+// model Attendance {
+//   check_id   Int       @id @default(autoincrement())
+//   user_id    Int
+//   action     String
+//   check_time DateTime?
+//   latitude   String?
+//   longitude  String?
+//   remote     Int       @default(0)
 
-  @@index([user_id])
-  @@index([latitude])
-  @@map("attendance")
-}
+//   @@index([user_id])
+//   @@index([latitude])
+//   @@map("attendance")
+// }
 
-model work_location {
-  id             Int    @id @default(autoincrement())
-  latitude       String?
-  longitude      String?
-  radiusinmeters String?
+// model work_location {
+//   id             Int     @id @default(autoincrement())
+//   latitude       String?
+//   longitude      String?
+//   radiusinmeters String?
 
-  @@map("work_location")
-}
+//   @@map("work_location")
+// }
 
 // enum ActionEnum {
 //   check_in
