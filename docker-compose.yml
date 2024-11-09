@@ -1,9 +1,9 @@
 version: '3.8'
 services:
 
-  dev-db:
+  nestjs-dev-db:
     image: postgres:15
-    hostname: nestjs-dev-db
+    hostname: nestjs-dev-db-hostname
     environment:
       POSTGRES_USER: nhatcomnhom
       POSTGRES_PASSWORD: nhatcomnhom
