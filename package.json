@@ -11,6 +11,13 @@
     "db:dev:up": "docker compose up nestjs-dev-db -d",
     "db:dev:mac:restart": "npm run db:dev:rm && npm run db:dev:up && sleep 1 && npm run prisma:dev:deploy",
     "db:dev:win:restart": "npm run db:dev:rm && npm run db:dev:up && timeout /t 1 && npm run prisma:dev:deploy",
+
+    "prisma:test:deploy": "dotenv -e .env.test -- prisma migrate deploy",
+    "db:test:rm": "docker compose rm nestjs-test-db -s -f -v",
+    "db:test:up": "docker compose up nestjs-test-db -d",
+    "db:test:mac:restart": "npm run db:test:rm && npm run db:test:up && sleep 1 && npm run prisma:test:deploy",
+    "db:test:win:restart": "npm run db:test:rm && npm run db:test:up && timeout /t 1 && npm run prisma:test:deploy",
+
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
@@ -51,6 +58,7 @@
     "@types/supertest": "^6.0.0",
     "@typescript-eslint/eslint-plugin": "^8.0.0",
     "@typescript-eslint/parser": "^8.0.0",
+    "dotenv-cli": "^7.4.2",
     "eslint": "^9.0.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-prettier": "^5.0.0",

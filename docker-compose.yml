@@ -8,15 +8,22 @@ services:
       POSTGRES_USER: nhatcomnhom
       POSTGRES_PASSWORD: nhatcomnhom
       POSTGRES_DB: nhatcomnhom-db
-      # POSTGRES_INITDB_ARGS: "--encoding=UTF8 --lc-collate=en_US.UTF-8 --lc-ctype=en_US.UTF-8"
-    # volumes:
-    #   - ./dbdata:/var/lib/postgresql/data
-    #   # - ./db_postgres:/docker-entrypoint-initdb.d
-    # restart: always
     ports:
       - 5432:5432
     networks:
-      - nestjs-dev-networks
+      - nestjs-networks
+  
+  nestjs-test-db:
+    image: postgres:15
+    hostname: nestjs-test-db-hostname
+    environment:
+      POSTGRES_USER: nhatcomnhom
+      POSTGRES_PASSWORD: nhatcomnhom
+      POSTGRES_DB: nhatcomnhom-db
+    ports:
+      - 5435:5432
+    networks:
+      - nestjs-networks
 
 networks:
-  nestjs-dev-networks:
+  nestjs-networks:
