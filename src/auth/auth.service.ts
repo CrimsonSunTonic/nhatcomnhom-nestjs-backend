@@ -25,13 +25,10 @@ export class AuthService {
         data: {
           email: dto.email,
           hash,
+          firstname: dto.firstName,
+          lastname: dto.lastName,
+          role: dto.role,
         },
-        // select: {
-        //   id: true,
-        //   email: true,
-        //   createAt: true,
-        //   updateAt: true,
-        // }
       });
 
       return this.signToken(user.id, user.email);
