@@ -1,6 +1,6 @@
 import { ForbiddenException, Injectable } from "@nestjs/common";
 import { PrismaService } from "src/prisma/prisma.service";
-import { AuthDto } from "./dto";
+import { SignInDto, SignUpDto } from "./dto";
 import * as argon from "argon2";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 import { JwtService } from "@nestjs/jwt";
@@ -15,7 +15,7 @@ export class AuthService {
   ) {
 
   }
-  async signup(dto: AuthDto) {
+  async signup(dto: SignUpDto) {
     //generate the password
     const hash = await argon.hash(dto.password);
 
@@ -25,8 +25,8 @@ export class AuthService {
         data: {
           email: dto.email,
           hash,
-          firstname: dto.firstName,
-          lastname: dto.lastName,
+          firstname: dto.firstname,
+          lastname: dto.lastname,
           role: dto.role,
         },
       });
@@ -39,12 +39,16 @@ export class AuthService {
             'Credentials taken',
           );
         }
+      } else if (error.message.includes("Can't reach database server")) {
+        throw new ForbiddenException(
+          'Database is not ready. Please try again later.',
+        );
       }
       throw error;
     }
   }
 
-  async signin(dto: AuthDto) {
+  async signin(dto: SignInDto) {
     // find the user by email
     const user = await this.prisma.user.findUnique({
       where: {
