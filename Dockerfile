@@ -1,10 +1,12 @@
 FROM node:20
 
 # Set environment variables
-ENV NODE_ENV=development
+# ENV NODE_ENV=development
 
 # Set the working directory
-WORKDIR /usr/src/app
+WORKDIR /app
+
+RUN npm i -g @nestjs/cli
 
 # Copy package.json and package-lock.json
 COPY package*.json ./
@@ -16,10 +18,8 @@ RUN npm install
 COPY . .
 
 # Generate Prisma client
-RUN npx prisma generate
-
-# Expose the application port
-EXPOSE 3333
+#RUN npx prisma generate
 
 # Start the application
-CMD ["npm", "run", "start"]
+# CMD ["npm", "run", "build"]
+CMD ["npm", "run", "start:dev"]
