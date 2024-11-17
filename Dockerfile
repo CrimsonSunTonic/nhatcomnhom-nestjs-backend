@@ -1,4 +1,4 @@
-FROM node:20
+FROM node:20.18.0-alpine3.19
 
 # Set environment variables
 # ENV NODE_ENV=development
@@ -18,7 +18,7 @@ RUN npm install
 COPY . .
 
 # Generate Prisma client
-#RUN npx prisma generate
+RUN npx prisma generate
 
 # Start the application
 # CMD ["npm", "run", "build"]
