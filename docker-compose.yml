@@ -1,0 +1,53 @@
+version: '3.8'
+services:
+  nhatcomnhom-nestjs-backend:
+    hostname: nhatcomnhom-nestjs-backend-hostname
+    build:
+      dockerfile: Dockerfile
+      context: .
+    depends_on:
+      - nestjs-dev-db
+      - nestjs-test-db
+    environment:
+      - DATABASE_URL=postgresql://nhatcomnhom:nhatcomnhom@nestjs-dev-db-hostname:5432/nhatcomnhom-db?schema=public
+      - JWT_SECRET=super-secret
+    volumes:
+      - ./:/app
+    ports:
+      - "4000:3333"
+    expose:
+      - "3333"
+    networks:
+      - nestjs-networks
+
+  nestjs-dev-db:
+    image: postgres:15
+    hostname: nestjs-dev-db-hostname
+    environment:
+      POSTGRES_USER: nhatcomnhom
+      POSTGRES_PASSWORD: nhatcomnhom
+      POSTGRES_DB: nhatcomnhom-db
+    ports:
+      - 5432:5432
+    expose:
+      - "5432"
+    networks:
+      - nestjs-networks
+  
+  nestjs-test-db:
+    image: postgres:15
+    hostname: nestjs-test-db-hostname
+    environment:
+      POSTGRES_USER: nhatcomnhom
+      POSTGRES_PASSWORD: nhatcomnhom
+      POSTGRES_DB: nhatcomnhom-db
+    ports:
+      - 5435:5432
+    expose:
+      - "5432"
+    networks:
+      - nestjs-networks
+
+networks:
+  nestjs-networks:
+    driver: bridge
